@@ -1,5 +1,5 @@
 /*
- * 
+ *
  * This file is part of signalement
  *
  * signalement is distributed in the hope that it will be useful,
@@ -36,7 +36,7 @@ Signalement.main = (function () {
         alert("Erreur au chargement du fichier de config passé en paramètre");
     };
 
-    // Chargement        
+    // Chargement
     loadConfigSuccess = function (request) {
         var urlParameters = extractUrlParams();
         var config = JSON.parse(request.responseText).config;
@@ -45,19 +45,19 @@ Signalement.main = (function () {
         var phplocation = config.phplocation.url;
         var enabledeletecontrol = config.deletecontrol.enable;
         OpenLayers.ProxyHost = ogcproxy;
-        Proj4js.defs["EPSG:3857"] = "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs";        
+        Proj4js.defs["EPSG:3857"] = "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs";
         Proj4js.defs["EPSG:2154"] = "+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
         Proj4js.defs["EPSG:4326"] = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
 	Proj4js.defs["EPSG:3948"] = "+proj=lcc +lat_1=47.25 +lat_2=48.75 +lat_0=48 +lon_0=3 +x_0=1700000 +y_0=7200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
-       	
-		var today = new Date();        
-        var beginDate = new Date(new Date().add(Date.MONTH, -12));        
+
+		var today = new Date();
+        var beginDate = new Date(new Date().add(Date.MONTH, -12));
         var wfsfilter = new OpenLayers.Filter.Comparison({
                 type: OpenLayers.Filter.Comparison.BETWEEN,
                 property: "date_saisie",
                 lowerBoundary: OpenLayers.Date.toISOString(beginDate),
                 upperBoundary: OpenLayers.Date.toISOString(today)
-        });		
+        });
 		var strategies = [new OpenLayers.Strategy.Fixed()];
 		// cluster
 		if (config.workinglayer.cluster === 'true') {
@@ -65,8 +65,8 @@ Signalement.main = (function () {
 			var clusterStrategy = new OpenLayers.Strategy.Cluster({distance:45, threshold:5});
 			strategies.push(clusterStrategy);
 		}
-        
-        // Layer WFS-T des signalements    
+
+        // Layer WFS-T des signalements
         var WFSSignal = new OpenLayers.Layer.Vector(config.workinglayer.label, {
             strategies: strategies,
             filter: wfsfilter,
@@ -80,17 +80,17 @@ Signalement.main = (function () {
                 extractAttributes: true,
                 schema: "https://www.cigalsace.org/geoserver/cigal_edit/wfs?service=WFS&version=1.1.0&request=DescribeFeatureType&TypeName=signalement_adresse"
             })
-        });		
-		
+        });
+
         WFSSignal.tp = {
             name: config.workinglayer.label,
             url: config.workinglayer.wfsurl,
             desc: config.workinglayer.description,
             metadata: config.workinglayer.metadataurl
-            
+
         };
 
-        //Création de la carte  
+        //Création de la carte
         var map = Signalement.mainmap.create(config);
         //Ajout layer signalements
         map.addLayers([WFSSignal]);
@@ -127,19 +127,19 @@ Signalement.main = (function () {
         //feature
 		if (urlParameters['feature']) {
 			var fi = urlParameters['feature'];
-			
+
 			//requete pour récupérer la géométrie du signalement fi
 		var requetehttppost = new XMLHttpRequest();
 		var url = "https://www.cigalsace.org/geoserver/cigal_edit/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cigal_edit:signalement_adresse&outputFormat=application/json&srsName=EPSG:3857&FeatureId=" + fi;
 		requetehttppost.open("GET", url, false);
 		requetehttppost.setRequestHeader("Content-type", " application/json; charset=UTF-8");
 		requetehttppost.send(null);
-			
+
 			var feat = JSON.parse(requetehttppost.responseText);
 			mapPanelOptions.zoom = 17;
             mapPanelOptions.center = new OpenLayers.LonLat(feat.features[0].geometry.coordinates[0],feat.features[0].geometry.coordinates[1]);
-		
-			var bs = map.getLayersByName('Photo aérienne (CUS CAC M2A CIGAL)');
+
+			var bs = map.getLayersByName('Photo aérienne (EMS CA M2A CIGAL)');
             map.setBaseLayer(bs[0]);
         }
         //baselayer
@@ -153,19 +153,19 @@ Signalement.main = (function () {
         }
         //Extent
         if (urlParameters['extent']) {
-            var extent = urlParameters['extent'].split(",");            
+            var extent = urlParameters['extent'].split(",");
             var bbox = extent.map(function (num) {
                 return parseInt(num, 10)
-            });            
-            mapPanelOptions.extent = new OpenLayers.Bounds(bbox[0], bbox[1], bbox[2], bbox[3]);            
+            });
+            mapPanelOptions.extent = new OpenLayers.Bounds(bbox[0], bbox[1], bbox[2], bbox[3]);
         }
-        
+
         else if (!urlParameters['feature']) {
-            mapPanelOptions.center = new OpenLayers.LonLat(826933.99050,6151040.54017);           
+            mapPanelOptions.center = new OpenLayers.LonLat(826933.99050,6151040.54017);
             mapPanelOptions.zoom = 8.5;
         }
-        
-        
+
+
         // Création du Panel carte avec la carte, les outils et les contrôles
         var mapPanel = new GeoExt.MapPanel(mapPanelOptions);
 
@@ -178,7 +178,7 @@ Signalement.main = (function () {
         var paramPanel = Signalement.parametrage.create();
         var layerPanel = Signalement.treelayer.create(map, config.workinglayer.label);
         var csvUploadForm = Signalement.importer.create(map, WFSSignal, phplocation);
-        var workflowForm = Signalement.workflow.create(map, WFSSignal, phplocation);        
+        var workflowForm = Signalement.workflow.create(map, WFSSignal, phplocation);
 		var filterPanel = Signalement.remotefilter.create(map, WFSSignal, toolbar, -12); //taille de la barre de date
 
         //    Création du panel avancé

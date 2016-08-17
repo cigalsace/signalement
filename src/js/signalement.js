@@ -1,5 +1,5 @@
 /*
- * 
+ *
  * This file is part of signalement
  *
  * signalement is distributed in the hope that it will be useful,
@@ -26,7 +26,7 @@ Signalement.signalement = (function () {
     var mapPanel = null;
 
     var enableSelectOver = false;
-    
+
     var phplocation = null;
 
     var wfsLayer = null;
@@ -65,7 +65,7 @@ Signalement.signalement = (function () {
 
     var popup;
 
-    // Style appliqué la couche signalements   
+    // Style appliqué la couche signalements
     var iconStyleDefault = new OpenLayers.Style({
         externalGraphic: "src/img/prive.png",
         graphicWidth: 20,
@@ -96,13 +96,13 @@ Signalement.signalement = (function () {
         'delete': iconStyleDelete,
         'temporary': iconStyleImport
     });
-    
+
     var oRules = {
-                'voie': {externalGraphic: "src/img/voie.png"},   //legende             
+                'voie': {externalGraphic: "src/img/voie.png"},   //legende
                 'adresse': {externalGraphic: "src/img/adresse.png"},   //legende
                 'alerte': {externalGraphic: "src/img/alerte.png"}   //legende
     };
-    
+
     normalStyleMap.addUniqueValueRules("default", "type_ref", oRules);
 
 	//Cluster
@@ -114,7 +114,7 @@ Signalement.signalement = (function () {
                     strokeWidth: 5,
                     strokeOpacity: 0.4,
                     label: "${label}",
-                    externalGraphic: "${graphic}",                    
+                    externalGraphic: "${graphic}",
                     fontColor: "#ffffff",
                 }, {
                     context: {
@@ -130,7 +130,7 @@ Signalement.signalement = (function () {
                             if(feature.cluster) {
                                 return "src/img/cluster.png";
                             }
-                            else {                                
+                            else {
                                 var g = "";
                                 switch(feature.attributes.type_ref)
                                 {
@@ -154,7 +154,7 @@ Signalement.signalement = (function () {
                             if (feature.cluster) {
                                 c = "#96CA2D";
                             }
-                            else {                                
+                            else {
                                 switch(feature.attributes.contributeur)
                                 {
                                 case "public":
@@ -166,20 +166,20 @@ Signalement.signalement = (function () {
                                 default:
                                   c = "#ffffff";
                                 }
-                            }                            
-                            return c;  
+                            }
+                            return c;
                           },*/
                         label: function(feature) {
                             // clustered features count or blank if feature is not a cluster
-                            return feature.cluster ? feature.cluster.length : "";  
+                            return feature.cluster ? feature.cluster.length : "";
                           }
                     }
                 });
-                
+
     var cluster_select_style = OpenLayers.Util.applyDefaults({ pointRadius: 15}, cluster_default_style.clone());
-    
+
     //var cluster_select_style = OpenLayers.Util.applyDefaults({ strokeWidth: 7, strokeOpacity: 1}, cluster_default_style.clone());
-	
+
 	var clusterStyleMap = new OpenLayers.StyleMap({"default": cluster_default_style, "select": cluster_select_style});
 
     // fonctions d'affichage des messages
@@ -222,7 +222,7 @@ Signalement.signalement = (function () {
 
     /**
      * Methode: showSignalFormWindow
-     * Appelꥠlorsqu'une entitꥠest sꭥctionnꥠpour modifications. 
+     * Appelꥠlorsqu'une entitꥠest sꭥctionnꥠpour modifications.
      * Param鵲es:
      * feature - {OpenLayers.Feature}
      */
@@ -273,7 +273,7 @@ Signalement.signalement = (function () {
                     hideField(signalForm.getForm().findField('nature_mod'));
                     signalFormWindow.setHeight(500);
                 }
-                
+
             } else {
                 //signalForm.getForm().findField("public").setValue('oui');
                 if (Ext.util.Cookies.get("mel")) {
@@ -333,7 +333,7 @@ Signalement.signalement = (function () {
      * clique sur  "enregistrer"
      * enregistre les attributs et la g갭굲ie dans la g갤atabase en utilisant
      *  une requ뵥 POST WFS:Insert ou WFS:Update.
-     * 
+     *
      * Peut seulement enregistrer une entit顠 la fois utilisant Strategy.Save : l'entit顳ꭥctionnꥮ
      */
     var saveSignal = function (f) {
@@ -366,14 +366,14 @@ layer.refresh({force:true});
      *
      * Param鵲es:
      * oFeature - {OpenLayers.Feature}
-     *                              
-     * AszAttributes - {Array} 
-     * 
+     *
+     * AszAttributes - {Array}
+     *
      * Formulaire
      */
     var parseFormAttributesToFeature = function (
         oFeature, aszAttributes, signalForm) {
-            
+
             var szAttr, szValue, oDate = new Date(),
                 aoAttr = oFeature.attributes,
                 aoItems = signalForm.items,
@@ -492,14 +492,14 @@ layer.refresh({force:true});
                 }
             }
         };
-        
+
     var hideField = function (field) {
         field.disable();// for validation
         field.hide();
         field.getEl().up('.x-form-item').setDisplayed(false); // hide label
     };
 
-    var showField = function (field) {        
+    var showField = function (field) {
         field.enable();
         field.show();
         field.getEl().up('.x-form-item').setDisplayed(true);// show label
@@ -580,20 +580,20 @@ layer.refresh({force:true});
      * le code INSEE et le nom de la commune concernꥍ
      * Param鵲es:
      * point
-     
+
      **/
     var getCommuneInfos = function (point) {
             if (!mon_loader) {
                 initLoader();
             }
             mon_loader.show();
-            var wfsurl = "https://www.cigalsace.org/geoserver/wfs?";            
+            var wfsurl = "https://www.cigalsace.org/geoserver/wfs?";
             var post = '<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" service="WFS" version="1.1.0"' + ' outputFormat="json"'+ ' xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/WFS-transaction.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'+
             '<wfs:Query typeName="CRA:CRA_COMMUNES_SHP_C48" ' +
             'srsName="EPSG:3857" xmlns:feature="http://www.cigalsace.org/ns/ign">' +
             ' <PropertyName>id_commune</PropertyName> ' +
             ' <PropertyName>lib_commun</PropertyName> ' +
-            '<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">' +            
+            '<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">' +
             '<ogc:Contains>' +
                 '<ogc:PropertyName>the_geom</ogc:PropertyName>' +
                 '<gml:MultiPoint srsName="http://www.opengis.net/gml/srs/epsg.xml#3857" xmlns:gml="http://www.opengis.net/gml">' +
@@ -604,12 +604,12 @@ layer.refresh({force:true});
                     '</gml:pointMember>' +
                 '</gml:MultiPoint>' +
             '</ogc:Contains>'+
-            '</ogc:Filter></wfs:Query></wfs:GetFeature>';            
-            
+            '</ogc:Filter></wfs:Query></wfs:GetFeature>';
+
             var request = OpenLayers.Request.issue({
                 method: 'POST',
                 url: wfsurl,
-                data:post,                
+                data:post,
                 failure: requestFailure,
                 success: getCommuneSuccess
             });
@@ -620,7 +620,7 @@ layer.refresh({force:true});
     var getCommuneSuccess = function (response) {
 
             var obj = eval("(" + response.responseText + ")");
-            if (obj.features.length > 0) {   
+            if (obj.features.length > 0) {
       OpenLayers.Console.log("Commune", obj.features[0].properties.lib_commun);
                 Ext.getCmp('libco').setValue(obj.features[0].properties.lib_commun.toUpperCase());
                 Ext.getCmp('depco').setValue(obj.features[0].properties.id_commune);
@@ -642,7 +642,7 @@ layer.refresh({force:true});
             if (typeof popup != 'undefined') {
                 popup.destroy();
             }
-            
+
 	var htmlContent ="";
             var ident="";
             // test cluster
@@ -651,29 +651,29 @@ layer.refresh({force:true});
                 htmlContent = "Pour afficher les informations relatives à ces signalements, veuillez zoomer davantage.";
             }
 			else
-			{ 
+			{
 	var traitepar = '';
 	//listing de tous les traitements des partenaires
-	if (e.attributes.t_cus == 'true'){traitepar = traitepar + 'CUS' + ', '};
-	if (e.attributes.t_cac == 'true'){traitepar = traitepar + 'CAC' + ', '};
+	if (e.attributes.t_ems == 'true'){traitepar = traitepar + 'EMS' + ', '};
+	if (e.attributes.t_ca == 'true'){traitepar = traitepar + 'CA' + ', '};
 	if (e.attributes.t_m2a == 'true'){traitepar = traitepar + 'M2A' + ', '};
 	if (e.attributes.t_sdis67 == 'true'){traitepar = traitepar + 'SDIS67' + ', '};
 	if (e.attributes.t_sdis68 == 'true'){traitepar = traitepar + 'SDIS68' + ', '};
 	if (e.attributes.t_cocoko == 'true'){traitepar = traitepar + 'ComComKoch' + ', '};
 	if (e.attributes.t_here == 'true'){traitepar = traitepar + 'Here' + ', '};
 	if (e.attributes.t_tomtom == 'true'){traitepar = traitepar + 'Tomtom' + ', '};
-	
-	if (traitepar == ''){traitepar = '/'};		
-				
+
+	if (traitepar == ''){traitepar = '/'};
+
                 ident = "Signalement : " + e.fid.split(".")[1]
                 htmlContent = "commune : <b>" + e.attributes.libco + "</b><br/>" +
-                    "référentiel : <b>" + e.attributes.type_ref + "</b><br/>" + 
-                    "nature : <b>" + e.attributes.nature_ref + "</b><br/>" + 
-                    "commentaires : <b>" + e.attributes.comment_ref + "</b><br/>" + 
-                    "contributeur : <b>" + e.attributes.contributeur + "</b><br/>" + 
-                    "mail : <b>" + e.attributes.mel + "</b><br/>" + "acte : <b>" + e.attributes.acte_ref + "</b><br/>" + 
+                    "référentiel : <b>" + e.attributes.type_ref + "</b><br/>" +
+                    "nature : <b>" + e.attributes.nature_ref + "</b><br/>" +
+                    "commentaires : <b>" + e.attributes.comment_ref + "</b><br/>" +
+                    "contributeur : <b>" + e.attributes.contributeur + "</b><br/>" +
+                    "mail : <b>" + e.attributes.mel + "</b><br/>" + "acte : <b>" + e.attributes.acte_ref + "</b><br/>" +
                     "date : <b>" + new Date(e.attributes.date_saisie.split('Z')[0]).format('d/m/Y') + "</b><br/>" +
-                    "Traité par : <b>" + traitepar + "</b><br/>";                    
+                    "Traité par : <b>" + traitepar + "</b><br/>";
 
                 if (e.attributes.url_1) {
                     if (e.attributes.url_1.match('http://')) {
@@ -684,9 +684,9 @@ layer.refresh({force:true});
                     if (e.attributes.url_2.match('http://')) {
                         htmlContent += "fichier 2 : <a href='" + e.attributes.url_2 + "' target='_blank'>Lien</a><br/>";
                     }
-                 }                 
+                 }
             }
-			
+
 			//****************************
             var size = new OpenLayers.Size(20, 34);
             var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
@@ -703,7 +703,7 @@ layer.refresh({force:true});
 
             });
             popup.show();
-            // map.addPopup(popup);                  
+            // map.addPopup(popup);
         };
 
     var desactivatePopup = function () {
@@ -802,8 +802,8 @@ Ext.MessageBox.hide(); //pour cacher la waitbar
 
         /**
          * APIMethod: create
-         * 
-         * APIMethod: create         
+         *
+         * APIMethod: create
          * Parameters:
          * m - {OpenLayers.Map} The map instance.
          */
@@ -829,12 +829,12 @@ Ext.MessageBox.hide(); //pour cacher la waitbar
             modifyPtCtrl = new OpenLayers.Control.ModifyFeature(wfsLayer, {
                 title: 'Modifier un signalement'
             });
-            // Outil supprimer un enregistrement   
+            // Outil supprimer un enregistrement
             deletePtCtrl = new OpenLayers.Control.DeleteFeature(wfsLayer, {
                 'box': true,
                 title: "Supprimer un signalement"
             });
-            // Outil EVOLUTION   
+            // Outil EVOLUTION
             evolutionCtrl = new OpenLayers.Control.DeleteFeature(wfsLayer, {
                 'box': true,
                 title: "Charger les evolutions"
@@ -895,7 +895,7 @@ Ext.MessageBox.hide(); //pour cacher la waitbar
                 tooltip: "Supprimer un signalement",
                 control: deletePtCtrl
             });
-            
+
             evolutionAction = new Ext.Button(
 			{
                 iconCls: "banevolution",
@@ -919,13 +919,13 @@ Ext.MessageBox.hide(); //pour cacher la waitbar
 					});
 				}
             });
-			
-			
+
+
 //...........Fonctions de lecture du fichier txt et publication des nouveaux signalements............//
 function lire(fichier)
 {
 if(window.XMLHttpRequest) obj = new XMLHttpRequest(); //Pour Firefox, Opera,...
-else if(window.ActiveXObject) obj = new ActiveXObject("Microsoft.XMLHTTP"); //Pour Internet Explorer 
+else if(window.ActiveXObject) obj = new ActiveXObject("Microsoft.XMLHTTP"); //Pour Internet Explorer
 else return(false);
 if (obj.overrideMimeType) obj.overrideMimeType("text/xml"); //Évite un bug de Safari
 obj.open("GET", fichier, false);
@@ -933,16 +933,16 @@ obj.send(null);
 if(obj.readyState == 4) return(obj.responseText);
 else return(false);
 }
-//............................	
-function publication(lesinsert) 
+//............................
+function publication(lesinsert)
 {
 var lexml = 'https://www.cigalsace.org/signalement/xml_out/'+lesinsert;
-var contenu = lire(lexml);		  
+var contenu = lire(lexml);
 
 
 var requetehttppost = new XMLHttpRequest();
 var url = "https://www.cigalsace.org/geoserver/cigal_edit/wfs";
-var params = contenu; 
+var params = contenu;
 
 
 requetehttppost.open("POST", url, true);
@@ -955,8 +955,8 @@ requetehttppost.setRequestHeader("Host", "www.cigalsace.org");
 requetehttppost.send(params);
 }
 //..............................................................................//
-			
-            
+
+
 		toolbar.addItem(new Ext.Toolbar.Spacer());
 		toolbar.addItem(new Ext.Toolbar.Separator());
 		toolbar.addItem(new Ext.Toolbar.Spacer());
@@ -971,7 +971,7 @@ requetehttppost.send(params);
 		toolbar.addItem(new Ext.Toolbar.Spacer());
 		toolbar.addItem(new Ext.Toolbar.Separator());
 		toolbar.addItem(new Ext.Toolbar.Spacer());
-			
+
 
 
             // Crꢴion des listeners d'ꥩtion de la couche WFS
@@ -1023,14 +1023,14 @@ requetehttppost.send(params);
 
             var contributeurData = [
                 ['privé', 'privé'],
-                ['CUS', 'CUS'],
-                ['CAC', 'CAC'],
+                ['EMS', 'EMS'],
+                ['CA', 'CA'],
                 ['M2A', 'M2A'],
                 ['SDIS67', 'SDIS67'],
                 ['SDIS68', 'SDIS68'],
                 ['COCOKO', 'Kochersberg']
             ];
-            
+
             var referentielStore = new Ext.data.SimpleStore({
                 fields: ['value', 'text'],
                 data: referentielData
@@ -1041,12 +1041,12 @@ requetehttppost.send(params);
                 fields: ['value', 'text'],
                 data: natureData
             });
-            
+
             var naturemodStore = new Ext.data.SimpleStore({
                 fields: ['value', 'text'],
                 data: naturemodData
             });
-            
+
             var contributeurStore = new Ext.data.SimpleStore({
                 fields: ['value', 'text'],
                 data: contributeurData
@@ -1057,7 +1057,7 @@ requetehttppost.send(params);
                 data: booleanData
             });
             // Crꢴions des contr孥s du formulaire
-            // l'id de chaque contr孥 correspond ࡵn champ de la couche WFS  
+            // l'id de chaque contr孥 correspond ࡵn champ de la couche WFS
 
             var referentielCombo = new Ext.form.ComboBox({
                 id: 'type_ref',
@@ -1086,7 +1086,7 @@ requetehttppost.send(params);
                 listWidth: 167,
                 allowBlank: false
             });
-            
+
             natureCombo.on('select', function(box, record, index) {
                 if (record.data.value === 'modification') {
                     showField(signalForm.getForm().findField('nature_mod'));
@@ -1095,9 +1095,9 @@ requetehttppost.send(params);
                 else {
                    hideField(signalForm.getForm().findField('nature_mod'));
                    signalFormWindow.setHeight(500);
-                }                
+                }
             });
-            
+
             var naturemodCombo = new Ext.form.ComboBox({
                 id: 'nature_mod',
                 fieldLabel: '<font color=red>*</font>' + 'nature de la modification',
@@ -1111,7 +1111,7 @@ requetehttppost.send(params);
                 listWidth: 167,
                 allowBlank: false
             });
-            
+
             var contributeurCombo = new Ext.form.ComboBox({
                 id: 'contributeur',
                 fieldLabel: '<font color=red>*</font>' + 'contributeur',
@@ -1156,12 +1156,12 @@ requetehttppost.send(params);
                 }]
             });*/
 
-            
+
             var disclaimerPanel = new Ext.Panel({
                 html:disclaimer.htmltext.value,
                 //title:"Avertissement",
                 frame: true});
-                
+
             var mandatoryPanel = new Ext.Panel({
                 html:'<font color=red>(*)   Champs obligatoires</font>',
                 //title:"Avertissement",
@@ -1211,8 +1211,8 @@ requetehttppost.send(params);
                             id: 'mel',
                             name: 'mail',
                             maxLength: 80
-                },          
-                
+                },
+
                 //*******************************
                 {
                     xtype: 'compositefield',
@@ -1274,7 +1274,7 @@ requetehttppost.send(params);
                     formBind: true,
                     iconCls: "save",
                     tooltip: 'Enregistrer les modifications courantes et la géométrie',
-                    handler: function () {                        
+                    handler: function () {
 						var oFeature = getSelectedSignal();
                         saveSignal(oFeature);
                     }

@@ -87,7 +87,7 @@
 				"label": "Fond cadastral",
 				"url": "https://www.cigalsace.org/geoserver/CG67/wms?",
 				"layer": "CG67_PCI_geo_parcelle",
-				"description": "Disponible pour le 67 hors CUS. Le plan du cadastre est un document administratif qui propose l’unique plan parcellaire à grande échelle couvrant le territoire national. (zoom >= 14)",
+				"description": "Disponible pour le 67 hors EMS. Le plan du cadastre est un document administratif qui propose l’unique plan parcellaire à grande échelle couvrant le territoire national. (zoom >= 14)",
 				"metadataurl":"https://www.cigalsace.org/geonetwork/apps/georchestra/?uuid=FR-226-700-011-080",
 				"style": "",
 				"visible": "false",
@@ -112,7 +112,7 @@
         },
 			  {
                 "wmslayer": {
-				"label": "Photo aérienne (CUS CAC M2A CIGAL)",
+				"label": "Photo aérienne (EMS CA M2A CIGAL)",
 				"url": "https://www.cigalsace.org/geoserver/wms?",
 				"layer": "CIGAL_RASTER_COMPOSITE",
 				"description": "Couche composite des données satellites TrueMarble 250m à petite échelle, planet observer 15m à moyenne échelle et orthophotographie 20cm à grande échelle",
@@ -177,7 +177,7 @@
             {
                 "htmltext": {
                     "id": "8",
-                    "value": "Sélection d'un flux sur l'emprise CAC. Cliquez sur s'abonner."
+                    "value": "Sélection d'un flux sur l'emprise CA. Cliquez sur s'abonner."
                 }
             },
             {

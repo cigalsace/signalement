@@ -92,7 +92,7 @@ Signalement.workflow = (function () {
                               }
                           });
 //fonction qui marque les signalements comme "traités".
-// acteur = organisme public qui a traité les signalements (CUS / CAC / ...)
+// acteur = organisme public qui a traité les signalements (EMS / CA / ...)
 // idsignal = chaine de texte généré par le PHP workflow.php, qui contient les informations des signalements traités.
 function publication(acteur,idsignal)
 {
@@ -133,7 +133,7 @@ workflowForm.getForm().reset(); //efface le fichier Ouvert dans le formulaire
                     text: 'Télécharger un exemple',
                     tooltip: 'Télécharger un fichier exemple',
                     handler: function(){
-                        window.open("traitements/cus_vu.txt");
+                        window.open("traitements/ems_vu.txt");
                     }
                 }
             ]

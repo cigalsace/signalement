@@ -1,5 +1,5 @@
 /*
- * 
+ *
  * This file is part of signalement
  *
  * signalement is distributed in the hope that it will be useful,
@@ -263,7 +263,7 @@ Signalement.remotefilter = (function () {
                     })
                 }]
             };
-            
+
             //...filtre voie / adresse / alerte ...
 			filterList_type = {
                 xtype: 'fieldset',
@@ -299,7 +299,7 @@ Signalement.remotefilter = (function () {
                     })
                 }]
 			};
-			
+
 			//... filtre creation / modification ...
 			filterList_nature = {
                 xtype: 'fieldset',
@@ -335,8 +335,8 @@ Signalement.remotefilter = (function () {
                     })
                 }]
 			};
-			
-			//...filtre prive / Eurométropole Strasbourg / CAC / M2A / SDIS68 / SDIS67...
+
+			//...filtre prive / Eurométropole Strasbourg / CA / M2A / SDIS68 / SDIS67...
             filterList_contributeur = {
                 xtype: 'fieldset',
                 title: 'Par contributeur',   //présentation
@@ -345,20 +345,20 @@ Signalement.remotefilter = (function () {
                 items: [{
                     fieldLabel: '',
                     boxLabel: 'Eurométropole Strasbourg',
-                    id: 'filtre_cus',
+                    id: 'filtre_ems',
                     filter: new OpenLayers.Filter.Comparison({
                         type: OpenLayers.Filter.Comparison.LIKE,
                         property: "contributeur", //présentation
-                        value: "CUS" //présentation
+                        value: "EMS" //présentation
 					})
 				}, {
                     fieldLabel: '',
-                    boxLabel: 'CAC',
-                    id: 'filtre_cac',
+                    boxLabel: 'CA',
+                    id: 'filtre_ca',
                     filter: new OpenLayers.Filter.Comparison({
                         type: OpenLayers.Filter.Comparison.LIKE,
                         property: "contributeur", //présentation
-                        value: "CAC" //présentation
+                        value: "CA" //présentation
 					})
                 }, {
                     fieldLabel: '',
@@ -416,8 +416,8 @@ Signalement.remotefilter = (function () {
 					})
                 }]
             };
-            
-            
+
+
 
             var filterdateForm = new Ext.Panel({
                 title: '1) Filter par date',
@@ -437,7 +437,7 @@ Signalement.remotefilter = (function () {
 				animCollapse: true,
 				split: false
             });
-            
+
             var filterautreForm = new Ext.Panel({
 				title: '2) Autres filtres',
                 id: 'filterautreForm',
@@ -445,7 +445,7 @@ Signalement.remotefilter = (function () {
                 items: [{
                         xtype: 'panel',
                         html: "Jouez sur les <b>attributs</b> ci dessous. <i>Vider les cases d'une catégorie ignore le filtrage de cette catégorie.</i>",
-                        //height:100                 
+                        //height:100
                     },
                     filterList_type,
 					filterList_nature,
@@ -455,8 +455,8 @@ Signalement.remotefilter = (function () {
 				collapsed: true,
 				animCollapse: true,
 				split: false
-            });	
-            
+            });
+
             var filterForm = new Ext.form.FormPanel({
                 title: 'Filtrer les signalements',
                 id: 'filterForm',
@@ -464,8 +464,8 @@ Signalement.remotefilter = (function () {
                 iconCls: 'filter',
 				collapsible: true,
                 items: [filterdateForm,
-					filterautreForm,					
-                    progressBar					
+					filterautreForm,
+                    progressBar
                 ],
                 buttons: [{
                         iconCls: "save",
@@ -514,7 +514,7 @@ Signalement.remotefilter = (function () {
                             if(filtre_nature.filters.length !==0)  {filter.filters.push(filtre_nature);};
                             layer.filter = filter;
 
-                            layer.refresh();						
+                            layer.refresh();
                         }
                     },
 					{
@@ -542,7 +542,7 @@ Signalement.remotefilter = (function () {
                                 item.setValue(etat);
                                 }
                             );
-    						
+
                         }
 					}
 
