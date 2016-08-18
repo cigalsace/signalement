@@ -1,5 +1,7 @@
 <?php
 error_reporting(-1);
+date_default_timezone_set('Europe/Paris');
+
 $epsg=$_GET["epsg"];
 $dossier = 'imports/';
 $fichier = basename($_FILES['lefichiercsv']['name']);    //signalement_bidon.csv

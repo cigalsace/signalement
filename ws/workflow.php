@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('Europe/Paris');
 $fichier = basename($_FILES['workflowcsv']['name']); //ems_vu.txt
 $taille_maxi = 4000000;
 $taille = filesize($_FILES['workflowcsv']['tmp_name']);
