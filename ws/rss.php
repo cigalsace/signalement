@@ -9,8 +9,8 @@ error_reporting(-1);
 $filtre=$_GET["cql_filter"];
 $filtre = str_replace(' ','+',$filtre); // les requêtes CQL ne marchent que lorsque les espaces sont remplacés par des +
 
-//........... Requête GETMAP sur le flux OGC (WMS) de signalements. Params : format = application/rss+xml  
-$rss = @file_get_contents("https://www.cigalsace.org/geoserver/wms?layers=cigal_edit:signalement_adresse&srs=EPSG:2154&format=application/rss+xml&version=1.1.1&request=GetMap&bbox=934173,6705656,1098054,6901029&service=wms&width=1&height=1&cql_filter=".$filtre);
+//........... Requête GETMAP sur le flux OGC (WMS) de signalements. Params : format = application/rss+xml
+$rss = @file_get_contents("https://www.cigalsace.org/geoserver/cigal_edit/wms?layers=signalement_adresse&srs=EPSG:2154&format=application/rss+xml&version=1.1.1&request=GetMap&bbox=934173,6705656,1098054,6901029&service=wms&width=1&height=1&cql_filter=".$filtre);
 
 //........... Remplacement de textes / titres ... HTML
 $rss = str_replace("cigal_edit:signalement_adresse","SIGN'Adresse CIGAL",$rss);
@@ -57,11 +57,11 @@ $rss = str_replace('projet</span>','projet <img border="0" src="https://www.ciga
 
 //........... balises manquantes
 $rss = str_replace('Alsace</description>','Alsace</description><dc:publisher>SIG REGION</dc:publisher><ttl>01</ttl><lastBuildDate>'.date(DATE_RFC2822).'</lastBuildDate>',$rss);
-$rss = str_replace('<link><![CDATA[https://www.cigalsace.org/geoserver/wms?service=wms&request=GetMap&version=1.1.1&format=application%2Frss+xml&layers=cigal_edit%3Asignalement_adresse&styles=point&cql_filter=depco+IS+NOT+NULL&height=1&width=1&transparent=false&bbox=934173.0%2C6705656.0%2C1098054.0%2C6901029.0&srs=EPSG%3A2154]]></link>','<link><![CDATA[https://www.cigalsace.org/signalement/]]></link>',$rss);
+$rss = str_replace('<link><![CDATA[https://www.cigalsace.org/geoserver/cigal_edit/wms?service=wms&request=GetMap&version=1.1.1&format=application%2Frss+xml&layers=cigal_edit%3Asignalement_adresse&styles=point&cql_filter=depco+IS+NOT+NULL&height=1&width=1&transparent=false&bbox=934173.0%2C6705656.0%2C1098054.0%2C6901029.0&srs=EPSG%3A2154]]></link>','<link><![CDATA[https://www.cigalsace.org/signalement/]]></link>',$rss);
 
 
 //........... Changement du link de chaque signalement
-$rss = str_replace('<link><![CDATA[https://www.cigalsace.org/geoserver/wms/reflect?featureid=signalement_adresse.','<link><![CDATA[https://www.cigalsace.org/signalement/?feature=',$rss);
+$rss = str_replace('<link><![CDATA[https://www.cigalsace.org/geoserver/cigal_edit/wms/reflect?featureid=signalement_adresse.','<link><![CDATA[https://www.cigalsace.org/signalement/?feature=',$rss);
 $rss = str_replace('&layers=cigal_edit%3Asignalement_adresse&format=application%2Fatom%2Bxml','',$rss);
 
 // Ajout de pubDate pour chaque signalement

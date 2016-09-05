@@ -163,7 +163,7 @@ Signalement.rss = (function () {
             initLoader();
         }
         mon_loader2.show();
-        var wfsurl = "https://www.cigalsace.org/geoserver/wfs";
+        var wfsurl = "https://www.cigalsace.org/geoserver/CRA/wfs";
         var postRequest = '<wfs:GetFeature service="WFS" version="1.1.0"'
         + ' outputFormat="json"'
         + ' xmlns:topp="http://www.openplans.org/topp"'
@@ -173,7 +173,7 @@ Signalement.rss = (function () {
         + ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
         + ' xsi:schemaLocation="http://www.opengis.net/wfs'
         + ' http://schemas.opengis.net/wfs/1.1.0/WFS-basic.xsd">'
-        + ' <wfs:Query srsName="EPSG:3857" typeName="CRA:CRA_COMMUNES_SHP_C48">'
+        + ' <wfs:Query srsName="EPSG:3857" typeName="CRA_COMMUNES_SHP_C48">'
         + ' <ogc:PropertyName>id_commune</ogc:PropertyName> '
         + ' <ogc:PropertyName>lib_commun</ogc:PropertyName>'
         +  ' <Filter>'
@@ -417,7 +417,7 @@ Signalement.rss = (function () {
                               drawPolyCtrl.deactivate();
                               break;
                              case 8:
-                              Ext.getCmp("cqlfilterA").setValue("depco+IN+(68007,68038,68066,68134,68143,68145,68146,68155,68157,68227,68237,68272,68295,68331,68338,68354,68365,68366,68374,68385)");
+                              Ext.getCmp("cqlfilterA").setValue("depco+IN+(68007,68038,68066,68095,68134,68143,68145,68146,68155,68157,68227,68237,68272,68295,68331,68338,68354,68365,68366,68374,68385)");
                               Ext.getCmp("rssbtngeo").setVisible(false);
                               drawPolyCtrl.deactivate();
                               break;
