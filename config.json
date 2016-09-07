@@ -113,7 +113,7 @@
 			  {
                 "wmslayer": {
 				"label": "Photo aérienne (EMS CA M2A CIGAL)",
-				"url": "https://www.cigalsace.org/geoserver/wms?",
+				"url": "https://www.cigalsace.org/geoserver/composite/wms?",
 				"layer": "CIGAL_RASTER_COMPOSITE",
 				"description": "Couche composite des données satellites TrueMarble 250m à petite échelle, planet observer 15m à moyenne échelle et orthophotographie 20cm à grande échelle",
 				"metadataurl":"https://www.cigalsace.org/geonetwork/srv/fr/metadata.show?uuid=",

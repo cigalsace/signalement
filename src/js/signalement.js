@@ -587,9 +587,9 @@ layer.refresh({force:true});
                 initLoader();
             }
             mon_loader.show();
-            var wfsurl = "https://www.cigalsace.org/geoserver/wfs?";
+            var wfsurl = "https://www.cigalsace.org/geoserver/CRA/wfs?";
             var post = '<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" service="WFS" version="1.1.0"' + ' outputFormat="json"'+ ' xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/WFS-transaction.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'+
-            '<wfs:Query typeName="CRA:CRA_COMMUNES_SHP_C48" ' +
+            '<wfs:Query typeName="CRA_COMMUNES_SHP_C48" ' +
             'srsName="EPSG:3857" xmlns:feature="http://www.cigalsace.org/ns/ign">' +
             ' <PropertyName>id_commune</PropertyName> ' +
             ' <PropertyName>lib_commun</PropertyName> ' +
