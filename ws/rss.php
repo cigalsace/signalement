@@ -92,7 +92,7 @@ while ($rech_balise_date !== false) {
 $k=1;
 $count_signal = count($mat_date);
 while ($k < $count_signal) {
-    $rss = substr_replace($rss,'<pubDate>'.date("D, d M Y H:i:s", strtotime($mat_date[$count_signal - $k])).'</pubDate>',$mat_title[$count_signal - $k],0);
+    $rss = substr_replace($rss,'<pubDate>'.date("D, d M Y H:i:s", strtotime($mat_date[$count_signal - $k])).' GMT </pubDate>',$mat_title[$count_signal - $k],0);
 	$k++;
 }
 
