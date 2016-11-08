@@ -96,6 +96,59 @@ while ($k < $count_signal) {
 	$k++;
 }
 
-//renvoie le RSS lorsqu'on appelle le PHP avec des paramètres de filtres.
-print $rss;
+// Load XML string as DOMDocument ($dom)
+$dom = new DOMDocument();
+$dom->loadXML($rss);
+$xp = new DOMXPath($dom);
+
+// Get List of items (as DOM Object DOMNodeList)
+$itemList = $xp->query('/rss/channel/item');
+
+// Convert $itemList to array to use usort() = copy DOMNode elements in the DOMNodeList to an array.
+$items = iterator_to_array($itemList);
+
+// Function to sort items by pubDate element
+function sort_by_pubdate($a, $b) {
+    return (int) (int) strtotime($b->getElementsByTagName('pubDate')[0]->nodeValue) - strtotime($a->getElementsByTagName('pubDate')[0]->nodeValue);
+}
+
+// Sort $items with usort() using sort_by_pubdate() function
+usort($items, 'sort_by_pubdate');
+
+// Create new XML dom document to rewrite the items in order
+$newdom = new DOMDocument('1.0', 'UTF-8');
+$newdom->formatOutput = true;
+$newdom->preserveWhiteSpace = true;
+
+// Initiate XML with root element from $dom
+$rss2 = $newdom->importNode($dom->documentElement);
+$newdom->appendChild($rss2);
+
+// Get channel elements from $dom and copy them to $newdom in new channel element created
+$channel = $xp->query('/rss/channel');
+$channel = $newdom->createElement('channel');
+$channel_elements = array(
+    'title',
+    'description',
+    'dc:publisher',
+    'ttl',
+    'lastBuildDate',
+    'link',
+    'atom:link'
+);
+foreach ($channel_elements as $channel_element) {
+    $element = $xp->query('/rss/channel/'.$channel_element);
+    $channel->appendChild($newdom->importNode($element[0], True));
+}
+
+// Add items element to channel element of $newdom
+foreach ($items as $item) {
+    $channel->appendChild($newdom->importNode($item, true));
+}
+$rss2->appendChild($channel);
+
+// Get XML as string or save directly to file
+echo $newdom->saveXML();
+//$newdom->save('test.xml');
+
 ?>

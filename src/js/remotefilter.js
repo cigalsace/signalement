@@ -336,7 +336,7 @@ Signalement.remotefilter = (function () {
                 }]
 			};
 
-			//...filtre prive / Eurométropole Strasbourg / CA / M2A / SDIS68 / SDIS67...
+			//...filtre prive / Eurométropole de Strasbourg / CA / M2A / SDIS68 / SDIS67...
             filterList_contributeur = {
                 xtype: 'fieldset',
                 title: 'Par contributeur',   //présentation
@@ -344,12 +344,12 @@ Signalement.remotefilter = (function () {
                 defaultType: 'checkbox',
                 items: [{
                     fieldLabel: '',
-                    boxLabel: 'Eurométropole Strasbourg',
+                    boxLabel: 'Eurométropole de Strasbourg',
                     id: 'filtre_ems',
                     filter: new OpenLayers.Filter.Comparison({
                         type: OpenLayers.Filter.Comparison.LIKE,
                         property: "contributeur", //présentation
-                        value: "EMS" //présentation
+                        value: "Eurométropole de Strasbourg" //présentation
 					})
 				}, {
                     fieldLabel: '',

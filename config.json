@@ -87,7 +87,7 @@
 				"label": "Fond cadastral",
 				"url": "https://www.cigalsace.org/geoserver/CG67/wms?",
 				"layer": "CG67_PCI_geo_parcelle",
-				"description": "Disponible pour le 67 hors EMS. Le plan du cadastre est un document administratif qui propose l’unique plan parcellaire à grande échelle couvrant le territoire national. (zoom >= 14)",
+				"description": "Disponible pour le 67 hors Eurométropole de Strasbourg. Le plan du cadastre est un document administratif qui propose l’unique plan parcellaire à grande échelle couvrant le territoire national. (zoom >= 14)",
 				"metadataurl":"https://www.cigalsace.org/geonetwork/apps/georchestra/?uuid=FR-226-700-011-080",
 				"style": "",
 				"visible": "false",
@@ -183,7 +183,7 @@
             {
                 "htmltext": {
                     "id": "9",
-                    "value": "Sélection d'un flux sur l'emprise Eurométropole Strasbourg. Cliquez sur s'abonner."
+                    "value": "Sélection d'un flux sur l'emprise Eurométropole de Strasbourg. Cliquez sur s'abonner."
                 }
             },
             {
