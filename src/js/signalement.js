@@ -657,6 +657,7 @@ layer.refresh({force:true});
 	if (e.attributes.t_ems == 'true'){traitepar = traitepar + 'EMS' + ', '};
 	if (e.attributes.t_ca == 'true'){traitepar = traitepar + 'CA' + ', '};
 	if (e.attributes.t_m2a == 'true'){traitepar = traitepar + 'M2A' + ', '};
+	if (e.attributes.t_sel == 'true'){traitepar = traitepar + 'Sel' + ', '};
 	if (e.attributes.t_sdis67 == 'true'){traitepar = traitepar + 'SDIS67' + ', '};
 	if (e.attributes.t_sdis68 == 'true'){traitepar = traitepar + 'SDIS68' + ', '};
 	if (e.attributes.t_cocoko == 'true'){traitepar = traitepar + 'ComComKoch' + ', '};
@@ -1026,6 +1027,7 @@ requetehttppost.send(params);
                 ['EMS', 'EMS'],
                 ['CA', 'CA'],
                 ['M2A', 'M2A'],
+		['Ville de Sélestat', 'Ville de Sélestat'],
                 ['SDIS67', 'SDIS67'],
                 ['SDIS68', 'SDIS68'],
                 ['COCOKO', 'Kochersberg']
