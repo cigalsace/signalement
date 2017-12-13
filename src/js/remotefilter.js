@@ -351,7 +351,7 @@ Signalement.remotefilter = (function () {
                         property: "contributeur", //présentation
                         value: "Eurométropole de Strasbourg" //présentation
 					})
-				}, {
+				},{
                     fieldLabel: '',
                     boxLabel: 'CA',
                     id: 'filtre_ca',
@@ -360,7 +360,7 @@ Signalement.remotefilter = (function () {
                         property: "contributeur", //présentation
                         value: "CA" //présentation
 					})
-                }, {
+               			},{
                     fieldLabel: '',
                     boxLabel: 'M2A',
                     id: 'filtre_m2a',
@@ -369,7 +369,16 @@ Signalement.remotefilter = (function () {
                        property: "contributeur", //présentation
                         value: "M2A" //présentation
 					})
-				}, {
+				},{
+                    fieldLabel: '',
+                    boxLabel: 'Ville de Sélestat',
+                    id: 'filtre_sel',
+                    filter: new OpenLayers.Filter.Comparison({
+                        type: OpenLayers.Filter.Comparison.LIKE,
+                       property: "contributeur", //présentation
+                        value: "Ville de Sélestat" //présentation
+					})
+				},{
                     fieldLabel: '',
                     boxLabel: 'SDIS67',
                     id: 'filtre_sdis67',
@@ -378,7 +387,7 @@ Signalement.remotefilter = (function () {
                         property: "contributeur", //présentation
                         value: "SDIS67" //présentation
 					})
-                }, {
+                		},{
                     fieldLabel: '',
                     boxLabel: 'SDIS68',
                     id: 'filtre_sdis68',
@@ -387,7 +396,7 @@ Signalement.remotefilter = (function () {
                         property: "contributeur", //présentation
                         value: "SDIS68" //présentation
 					})
-                }, {
+                		},{
                     fieldLabel: '',
                     boxLabel: 'Kochersberg',
                     id: 'filtre_cocoko',
@@ -396,7 +405,7 @@ Signalement.remotefilter = (function () {
                         property: "contributeur", //présentation
                         value: "KOCHERSBERG" //présentation
 					})
-                }, {
+                		},{
                     fieldLabel: '',
                     boxLabel: 'Webpart',
                     id: 'filtre_webpart',
@@ -405,7 +414,7 @@ Signalement.remotefilter = (function () {
                         property: "contributeur", //présentation
                         value: "WEBPART" //présentation
 					})
-                }, {
+                		},{
                     fieldLabel: '',
                     boxLabel: 'Privé',
                     id: 'filtre_prive',
