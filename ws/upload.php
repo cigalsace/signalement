@@ -1,5 +1,6 @@
 
 <?php
+date_default_timezone_set('Europe/Paris');
 $dossier = 'docs/';
 $fichier = basename($_FILES['lefichier']['name']);
 $taille_maxi = 40000000;
